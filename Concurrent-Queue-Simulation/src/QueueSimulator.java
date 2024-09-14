@@ -8,16 +8,22 @@ public class QueueSimulator {
     }
 
     public void simulateBankQueue(int numTellers, int maxLength) {
+        
+        // Creating a bank queue with the specified number of tellers and maximum queue length
         BankQueue bankQueue = new BankQueue(numTellers, maxLength);
         long startTime = System.currentTimeMillis();
         long endTime = startTime + simulationTimeMinutes * 60 * 1000L;
 
         while (System.currentTimeMillis() < endTime) {
+            // Create a new customer and add it to the bank queue
             long currentTime = System.currentTimeMillis();
             Customer customer = new Customer(currentTime);
             bankQueue.addCustomer(customer);
+            
+            // Process the bank queue
             bankQueue.processQueue();
 
+            // Sleep for a random time between 20 and 60 seconds
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(20, 61) * 1000L);
             } catch (InterruptedException e) {
@@ -57,3 +63,4 @@ public class QueueSimulator {
         System.out.println("Average service time: " + (groceryQueues.getTotalServiceTime() / (double) groceryQueues.getTotalServed()));
     }
 }
+ 

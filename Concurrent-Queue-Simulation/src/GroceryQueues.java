@@ -27,6 +27,7 @@ public class GroceryQueues {
         int shortestQueueIndex = -1;
         int shortestQueueSize = Integer.MAX_VALUE;
 
+        // Find the shortest queue
         for (int i = 0; i < queues.length; i++) {
             queueLocks[i].lock();
             try {

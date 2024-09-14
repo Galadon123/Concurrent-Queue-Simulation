@@ -20,7 +20,10 @@ public class BankQueue {
     public void addCustomer(Customer customer) {
         queueLock.lock();
         try {
+            // Increment the total number of customers
             totalCustomers.incrementAndGet();
+
+            // If the queue is full and the customer cannot be added, mark the customer as unserved
             if (!queue.offer(customer)) {
                 customer.setServed(false);
                 totalLeftUnserved.incrementAndGet();
@@ -34,10 +37,15 @@ public class BankQueue {
         queueLock.lock();
         try {
             for (int i = 0; i < numTellers; i++) {
+                // Get the next customer from the queue
                 Customer customer = queue.poll();
+                
+                // If a customer is available, process their service time and increment the totals
                 if (customer != null) {
                     totalServiceTime.addAndGet(customer.getServiceTime());
                     totalServed.incrementAndGet();
+                    
+                    // Simulate the service time by sleeping for the duration of the service time
                     try {
                         Thread.sleep(customer.getServiceTime() * 1000L);
                     } catch (InterruptedException e) {
