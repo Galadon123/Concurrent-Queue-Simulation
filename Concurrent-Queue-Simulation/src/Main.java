@@ -11,9 +11,11 @@ public class Main {
         // Simulate BankQueue
         System.out.println("Simulating BankQueue with 3 tellers and max queue length of 5...");
         simulator.simulateBankQueue(3, 5);
+        simulator.shutdownBankQueue();
 
         // Simulate GroceryQueues
         System.out.println("Simulating GroceryQueues with 3 cashiers and max queue length of 2...");
         simulator.simulateGroceryQueues(3, 2);
+        simulator.shutdownGroceryQueues();
     }
 }

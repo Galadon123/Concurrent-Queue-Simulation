@@ -1,6 +1,8 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QueueSimulator {
+    private BankQueue bankQueue;
+    private GroceryQueues groceryQueues;
     private final int simulationTimeMinutes;
 
     public QueueSimulator(int simulationTimeMinutes) {
@@ -10,7 +12,7 @@ public class QueueSimulator {
     public void simulateBankQueue(int numTellers, int maxLength) {
         
         // Creating a bank queue with the specified number of tellers and maximum queue length
-        BankQueue bankQueue = new BankQueue(numTellers, maxLength);
+        bankQueue = new BankQueue(numTellers, maxLength);
         long startTime = System.currentTimeMillis();
         long endTime = startTime + simulationTimeMinutes * 60 * 1000L;
 
@@ -39,7 +41,7 @@ public class QueueSimulator {
     }
 
     public void simulateGroceryQueues(int numQueues, int maxLength) {
-        GroceryQueues groceryQueues = new GroceryQueues(numQueues, maxLength);
+        groceryQueues = new GroceryQueues(numQueues, maxLength);
         long startTime = System.currentTimeMillis();
         long endTime = startTime + simulationTimeMinutes * 60 * 1000L;
 
@@ -62,5 +64,20 @@ public class QueueSimulator {
         System.out.println("Total customers left unserved: " + groceryQueues.getTotalLeftUnserved());
         System.out.println("Average service time: " + (groceryQueues.getTotalServiceTime() / (double) groceryQueues.getTotalServed()));
     }
+
+    // Add a method to shutdown the BankQueue simulation
+    public void shutdownBankQueue() {
+        if (bankQueue != null) {
+            bankQueue.shutdown();
+        }
+    }
+
+    // Add a method to shutdown the GroceryQueues simulation
+    public void shutdownGroceryQueues() {
+        if (groceryQueues != null) {
+            groceryQueues.shutdown();
+        }
+    }
+    
 }
  

@@ -7,7 +7,6 @@ public class Customer {
 
     public Customer(long arrivalTime) {
         this.arrivalTime = arrivalTime;
-        // Randomly generate a service time between 60 and 300 minutes 
         this.serviceTime = ThreadLocalRandom.current().nextInt(60, 301);
         this.served = true;
     }
